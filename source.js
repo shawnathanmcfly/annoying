@@ -273,6 +273,14 @@ function getView(){
     }
 }
 
+/******************************
+    
+    Sloppy renderer. Couldn't nest it in a loop
+    due to textures not aligning correctly.
+    So had to hard code every possible wall in view.
+
+
+********************************/
 function drawSurround(){
 
     ctx.drawImage(bg, 0, 0);
@@ -633,15 +641,13 @@ document.addEventListener("keydown", function(event){
 
 window.onload = (function() { 
 
-    for( let wait = 0; wait < 10000; wait++ ){
-        //loser attempt add implementing wait for resources load
-    }
+    
 
     getView();
     drawMap();
     drawSurround();
     
-    for( let wait = 0; wait < 50000; wait++ ){
+    for( let wait = 0; wait < 100000; wait++ ){
         //loser attempt add implementing wait for resources load
     }
 
