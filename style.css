@@ -22,3 +22,9 @@
     border: 10px solid #1a8346;
     
 }
+
+#badguySprites{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
