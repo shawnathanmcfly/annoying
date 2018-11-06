@@ -16,20 +16,9 @@
     font-style: bold;
 }
 
-#gameWindow {
+#gameWindow, #mapWindow {
 
     float: left;
     border: 10px solid #1a8346;
     
-}
-
-#map {
-    position: relative;
-    border: 10px solid #0c3f21;
-    background-color: black;
-    padding: 5px;
-    float: left;
-    width: 197px;
-    height: 195px;
-    color: rgb(129, 129, 129);
 }

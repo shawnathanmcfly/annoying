@@ -9,7 +9,10 @@
 
 // GLOBALS
 var c = document.getElementById("gameWindow");
+var m = document.getElementById("mapWindow");
 var ctx = c.getContext("2d");
+var mapC = m.getContext("2d");
+
 
 var tx_side = [];
 var tx_side1 = [];
@@ -58,32 +61,35 @@ var pView = [
 
 ];
 
-function drawView(){
-
-    document.getElementById("msgBox").innerHTML = 
-
-    "" +
-    pView[49] + " " + pView[50] + " " + pView[51] + " " + pView[52] + " " + pView[53] + " " + pView[54] + " " + pView[55] + "<br>" +
-    pView[42] + " " + pView[43] + " " + pView[44] + " " + pView[45] + " " + pView[46] + " " + pView[47] + " " + pView[48] + "<br>" +
-    pView[35] + " " + pView[36] + " " + pView[37] + " " + pView[38] + " " + pView[39] + " " + pView[40] + " " + pView[41] + "<br>" +
-    pView[28] + " " + pView[29] + " " + pView[30] + " " + pView[31] + " " + pView[32] + " " + pView[33] + " " + pView[34] + "<br>" +
-    pView[21] + " " + pView[22] + " " + pView[23] + " " + pView[24] + " " + pView[25] + " " + pView[26] + " " + pView[27] + "<br>" +
-    pView[14] + " " + pView[15] + " " + pView[16] + " " + pView[17] + " " + pView[18] + " " + pView[19] + " " + pView[20] + "<br>" +
-    pView[7] + " " + pView[8] + " " + pView[9] + " " + pView[10] + " " + pView[11] + " " + pView[12] + " " + pView[13] + "<br>" +
-    pView[0] + " " + pView[1] + " " + pView[2] + " " + "#" + " " + pView[4] + " " + pView[5] + " " + pView[6]
-}
-
 function drawMap(){
 
     let mapx = 0;
-    while( mapx < px - 8 ){
+    while( mapx < px - 20 ){
         mapx++;
     }
 
     let mapy = 0;
-    while( mapy < py - 8 ){
+    while( mapy < py - 20 ){
         mapy++;
-    }    
+    }
+
+    mapC.fillStyle = "#000000";
+    mapC.fillRect(0,0,205,205);
+    
+    mapC.fillStyle="#1a8346";
+    for(let y = 0; y <= 40 && y < level.length; y++ ){
+        for( let x = 0; x <= 40 && x < level[y].length; x++ ){
+
+            if( level[y+mapy][x+mapx] >= 1 && level[y+mapy][x+mapx] < 666 ){
+                mapC.fillRect(x*5,y*5,5,5);
+            }else if( y+mapy == py && x+mapx == px ){
+                mapC.fillStyle="#FF0000";
+                mapC.fillRect(x*5,y*5,5,5);
+                mapC.fillStyle="#1a8346";
+            }
+        }
+
+    }
 
 }
 
@@ -339,6 +345,7 @@ function drawSurround(){
             ctx.drawImage(tx[ pView[47] - 1], 175+100, 178, 50, 45 );
             ctx.fillRect(175+100, 178, 50, 45);
         }
+        
         // -1 left check
         if( pView[ 29 ] >= 1 && pView[ 29 ] < 666 ){
             ctx.drawImage(tx_side1[ pView[ 29 ] - 1 ],80,0,45,stone_side1.height,80,138,45,stone_side1.height);
@@ -559,6 +566,7 @@ document.addEventListener("keydown", function(event){
             py++;
         }
 
+        drawMap();
         /*document.getElementById("msgBox").innerHTML = "X: "+ px + " Y: " + py;*/
     }
 
@@ -575,6 +583,7 @@ document.addEventListener("keydown", function(event){
             py--;
         }
         
+        drawMap();
         /*document.getElementById("msgBox").innerHTML = "X: "+ px + " Y: " + py;*/
     }
 
@@ -611,9 +620,8 @@ document.addEventListener("keydown", function(event){
         }
     }
 
-    drawView();
-    getView();
     
+    getView();
     drawSurround();
     
 }, false);
