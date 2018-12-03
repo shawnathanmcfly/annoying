@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="style.css" media="screen" />
-    <script src="renderer.js"></script>
+    
     
 </head>
 
@@ -9,17 +9,19 @@
     <!-- Pre load images for stupid game -->
     <img id="bg" class="invImg" src="bg.gif" >
     
-    <img id="stone_side" class="invImg" src="stone_side.gif">
-    <img id="stone_side1" class="invImg" src="stone_side1.gif">
-    <img id="stone_side2" class="invImg" src="stone_side2.gif">
-    <img id="vend_side" class="invImg" src="vend_side.gif">
+    <img id="stone_side" class="invImg" src="stone_side.gif" />
+    <img id="stone_side1" class="invImg" src="stone_side1.gif" />
+    <img id="stone_side2" class="invImg" src="stone_side2.gif" />
+    <img id="vend_side" class="invImg" src="vend_side.gif" />
+    <img id="vend_side1" class="invImg" src="vend_side1.gif" />
 
-    <img id="stone" class="invImg" src="stone.gif">
-    <img id="vend" class="invImg" src="vend.gif">
+    <img id="stone" class="invImg" src="stone.gif" />
+    <img id="vend" class="invImg" src="vend.gif" />
 
-    <!-- SPRITES -->
+    <img id="clip" class="invImg" src="clip.gif" />
 
-    
+    <!-- DECOR -->
+    <img id="plant" class="invImg" src="plant.gif" />
     
     <canvas id="gameWindow" width="400" height="400"></canvas>
     <div id="msgBox">
@@ -28,12 +30,25 @@
         move forward is up<br>
         move backwards is down<br>
     </div><br>
+    <div id="chat">
+            <button style="float:right; width: 80px; height: 100%" type="button">send messege</button>
+        <textarea rows="2" cols="3"></textarea>
+        
+    </div><br>
     <canvas id="mapWindow" width="205", height="205">
 
-    </div>
+    </canvas>
+    <p id="mp"></p>
     
+    <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="msg.js"></script>
+    <script src="items.js"></script>
+    <script src="renderer.js"></script>
     <script src="source.js"></script>
+    
+    
+    
     
 </body>
 

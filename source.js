@@ -6,38 +6,35 @@
 //
 //
 ////////////////////////////////////////////////////////////
-// GLOBALS
-var renderer = document.createElement('script');
-renderer.src = 'renderer.js';
-document.head.appendChild(renderer);
 var c = document.getElementById("gameWindow");
 var m = document.getElementById("mapWindow");
 var ctx = c.getContext("2d");
 var mapC = m.getContext("2d");
 
+//GLOBALS
 var tx_side = [];
-var tx_side1 = [];
+var tx_side1 = [], tx_side2 = [];
 var tx = [];
 var badguys = [];
 var bg = document.getElementById("bg");
-var px = 5;
+var px = 4;
 var py = 6;
-var dir = 2; //EAST
+var dir = 3; //EAST
 
 var level = [
 
-    [ 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0 ],
-    [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 2, 0 ],
-    [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0 ],
-    [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 ],
-    [ 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0 ],
-    [ 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1 ],
-    [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0 ],
-    [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1 ],
-    [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 ],
-    [ 0, 0, 2, 1, 1, 0, 1, 2, 2, 0, 0, 1, 1, 1, 0, 0, 0, 1 ],
-    [ 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0 ],
-    [ 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1 ],
+    [ 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1 ],
+    [ 0, 1, obj.plant, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 2, 0, 1, 1, 1, 1, 1, 1 ],
+    [ 0, 1, obj.plant, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1 ],
+    [ 0, 2, obj.plant, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1 ],
+    [ 0, 1, obj.clip, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1 ],
+    [ 2, 0, obj.clip, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1 ],
+    [ 0, 1, obj.clip, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1 ],
+    [ 0, 1, obj.clip, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1 ],
+    [ 0, 1, obj.plant, obj.plant, obj.plant, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1 ],
+    [ 0, 0, 2, 1, 1, 0, 1, 2, 2, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1 ],
+    [ 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1 ],
+    [ 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
     [ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1 ],
     [ 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1 ],
     [ 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1 ],
@@ -46,15 +43,14 @@ var level = [
 
 ];
 
-
-
- 
-
 tx_side.push( document.getElementById("stone_side") );
 tx_side.push( document.getElementById("vend_side") );
 
 tx_side1.push( document.getElementById("stone_side1") );
 tx_side1.push( document.getElementById("stone_side1") ); //TODO: DUMMY UNTIL VEND IS DONE!!!!!!!!!!!!!
+
+tx_side2.push( document.getElementById("stone_side2") );
+tx_side2.push( document.getElementById("stone_side2") ); //TODO: ANOTHER DUMMY!!!!!!!!!!!!!!!!!!
 
 tx.push( document.getElementById("stone") );
 tx.push( document.getElementById("vend") );
@@ -73,6 +69,14 @@ var pView = [
     0, 0, 0, 0, 0, 0, 0
 
 ];
+
+function getMousePos(canvas, evt) {
+  var rect = canvas.getBoundingClientRect();
+  return {
+    x: evt.clientX - rect.left,
+    y: evt.clientY - rect.top
+  };
+}
 
 function drawMap(){
 
@@ -237,11 +241,8 @@ function getView(){
                 pView[ i++ ] = level[py + 3][px+x];
             }else{
                 pView[ i++ ] = 666;
-            }
-        
-            
+            }       
         }
-        
     }else if( dir == 3 ){
 
         let i = 0;
@@ -288,33 +289,131 @@ function getView(){
 
 document.addEventListener("keydown", function(event){
 
+    var areaCheck;
+
     if( event.keyCode == 40 ){
-        
-        if( dir == 1 && py != 0 && level[ py - 1 ][px] == 0){
-            py--;
-        }else if( dir == 2 && level[ py ][ px - 1] == 0 ){
-            px--;
-        }else if( dir == 3 && level[ py ][ px + 1] == 0 ){
-            px++;
-        }else if( dir == 0 && level[ py + 1][ px ] == 0 ){
-            py++;
+
+        if( dir == 1 && py != 0 ){
+
+            areaCheck = level[ py - 1 ][px];
+            
+            if( typeof( areaCheck ) === 'object' ){
+
+                if( areaCheck.solid === false ){
+                    py--;
+                }else{
+                    insertNote( areaCheck.msg );
+                }
+            
+            }else if( areaCheck === 0 ){
+                py--;
+            }
+            
+        }else if( dir == 2 ){
+
+            areaCheck = level[ py ][ px - 1];
+
+            if( typeof( areaCheck ) === 'object' ){
+
+                if( areaCheck.solid === false ){
+                    px--;
+                }else{
+                    insertNote( areaCheck.msg );
+                }
+            
+            }else if( areaCheck === 0 ){
+                px--;
+            }
+            
+        }else if( dir == 3 ){
+
+            areaCheck = level[ py ][ px + 1];
+
+            if( typeof( areaCheck ) === 'object' ){
+
+                if( areaCheck.solid === false ){
+                    px++;
+                }else{
+                    insertNote( areaCheck.msg );
+                }
+            
+            }else if( areaCheck === 0 ){
+                px++;
+            }
+            
+        }else if( dir == 0 ){
+
+            areaCheck = level[ py + 1][ px ];
+            if( typeof( areaCheck ) === 'object' ){
+
+                if( areaCheck.solid === false ){
+                    py++;
+                }else{
+                    insertNote( areaCheck.msg );
+                }
+            
+            }else if( areaCheck === 0 ){
+                py++;
+            }
         }
 
         drawMap();
         /*document.getElementById("msgBox").innerHTML = "X: "+ px + " Y: " + py;*/
+        
     }
 
     if( event.keyCode == 38 ){
         
-        
-        if( dir == 1 && pView[ 10 ] == 0 ){
-            py++;
-        }else if( dir == 2 && pView[10] == 0 ){
-            px++;
-        }else if( dir == 3 && pView[10] == 0 ){
-            px--;
-        }else if( dir == 0 && pView[10] == 0 ){
-            py--;
+        areaCheck = pView[10];
+
+        if( dir == 1 ){
+            if( typeof( areaCheck ) === 'object' ){
+
+                if( areaCheck.solid === false ){
+                    py++;
+                }else{
+                    insertNote( areaCheck.msg );
+                }
+            
+            }else if( areaCheck === 0 ){
+                py++;
+            }
+        }else if( dir == 2 ){
+            if( typeof( areaCheck ) === 'object' ){
+
+                if( areaCheck.solid === false ){
+                    px++;
+                }else{
+                    insertNote( areaCheck.msg );
+                }
+            
+            }else if( areaCheck === 0 ){
+                px++;
+            }
+        }else if( dir == 3 ){
+            if( typeof( areaCheck ) === 'object' ){
+
+                if( areaCheck.solid === false ){
+                    px--;
+                }else{
+                    insertNote( areaCheck.msg );
+                }
+            
+            }else if( areaCheck === 0 ){
+                px--;
+            }
+        }else if( dir == 0 ){
+            if( typeof( areaCheck ) === 'object' ){
+
+                if( areaCheck.solid === false ){
+                    py--;
+                }else{
+                    insertNote( areaCheck.msg );
+                }
+            
+            }else if( areaCheck === 0 ){
+                py--;
+            }
         }
         
         drawMap();
@@ -323,103 +422,62 @@ document.addEventListener("keydown", function(event){
 
     if( event.keyCode == 37 ){   
         if( dir == 1 ){
-            document.getElementById("msgBox").innerHTML = "Facing East";
+            insertNote("Facing East");
             dir = 2;
         }else if( dir == 3 ){
-            document.getElementById("msgBox").innerHTML = "Facing South";
+            insertNote("Facing South");
             dir = 1;
         }else if( dir == 2 ){
             dir = 0;
-            document.getElementById("msgBox").innerHTML = "Facing North";
+            insertNote("Facing North");
         }else if( dir == 0){
             dir = 3;
-            document.getElementById("msgBox").innerHTML = "Facing West";
+            insertNote("Facing West");
         }
     }
 
     if( event.keyCode == 39 ){
         
         if( dir == 2 ){
-            document.getElementById("msgBox").innerHTML = "Facing South";
+            insertNote("Facing South");
             dir = 1;
         }else if( dir == 1 ){
             dir = 3;
-            document.getElementById("msgBox").innerHTML = "Facing West";
+            insertNote("Facing West");
         }else if( dir == 3 ){
             dir = 0;
-            document.getElementById("msgBox").innerHTML = "Facing North";
+            insertNote("Facing North");
         }else if( dir == 0){
             dir = 2;
-            document.getElementById("msgBox").innerHTML = "Facing East";
+            insertNote("Facing East");
         }
     }
-
     
     getView();
     drawSurround();
     
 }, false);
 
+c.addEventListener( 'mousemove', function(e){
+ 
+    var mpos = getMousePos(c, e);
+    document.getElementById('mp').innerHTML = 'X: ' + mpos.x + "Y: " + mpos.y;
+
+}, false);
 
 window.onload = (function() { 
+
+    var pusher = new Pusher('885bfe46deea057b6812', {
+        cluster: 'us2',
+        encrypted: false
+    });
+
+    let channel = pusher.subscribe('public-chat');
+    channel.bind('message-added', onMessageAdded);
 
     getView();
     drawMap();
 
     drawSurround();
-    
-    
-    for( let wait = 0; wait < 100000; wait++ ){
-        //loser attempt add implementing wait for resources load
-    }
 
 });
-
-
-
-    /*ctx.drawImage(p_down, px, py);*/
-
-
-/*window.onkeyup = function(event){
-
-    if( event.keyCode == 40 ){
-        keyPressed[0] = 0;
-    }
-
-    if( event.keyCode == 38 ){
-        keyPressed[1] = 0;
-    }
-
-    if( event.keyCode == 37 ){
-        keyPressed[2] = 0;
-    }
-
-    if( event.keyCode == 39 ){
-        keyPressed[3] = 0;
-    }
-}
-
-function loop(timestamp){
-
-    if( keyPressed[0] == 1 ){
-        py += 2;
-    }
-
-    if( keyPressed[1] == 1 ){
-        py -= 2;
-    }
-
-    if( keyPressed[2] == 1 ){
-        px -= 2;
-    }
-
-    if( keyPressed[3] == 1 ){
-        px += 2;
-    }
-
-    
-
-    requestAnimationFrame(loop);
-}
-
-window.requestAnimationFrame( loop );*/
