@@ -21,11 +21,12 @@ var obj = {
     //HEALTH
     
     //AMMO
-    clip : new Obj( "ammo", 8, "clip", false ),
+    clip : new Obj( "ammo", 8, "clip", false, "You picked up a clip" ),
 
 
     //DECOR
     plant : new Obj( "solid_decor", 0, "plant", true, "A plant blocks your path. The leaves smell pleasant." ),
+    table : new Obj( "solid_decor", 0, "table", true, "Boring-ass table"),
 
 
 };

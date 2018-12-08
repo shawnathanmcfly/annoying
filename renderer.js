@@ -66,9 +66,15 @@ function drawSurround(){
         if( pView[ 35 ] >= 1 && pView[ 35 ] < 666 ){
             ctx.drawImage(tx_side2[ pView[ 35 ] - 1 ],50,0,25,stone_side2.height,50,160,25,stone_side2.height);
         }
+        if( typeof(pView[ 43 ]) === 'object' )
+            drawObjView( pView[ 43 ].image, 110, 221, 0.2 );
+        
         /* -1 side left check */
         if( pView[ 36 ] >= 1 && pView[ 36 ] < 666 ){
             ctx.drawImage(tx_side1[ pView[ 36 ] - 1 ],110,0,24,stone_side1.height,110,138,24,stone_side1.height);
+        }
+        if( typeof(pView[ 44 ]) === 'object' ){
+            drawObjView( pView[ 44 ].image, 155, 221, 0.2 );
         }
         /* side left check */
         if( pView[ 44 ] >= 1 && pView[ 44 ] < 666 ){
@@ -78,36 +84,33 @@ function drawSurround(){
         /////////////////////////
         /////////////////////////
         /* side right check */
+        if( typeof(pView[ 45 ]) === 'object' )
+            drawObjView( pView[ 45 ].image, 400 / 2, 221, 0.2 );
+        
         ctx.save()
         ctx.scale( -1, 1 );
         if( pView[ 41 ] >= 1 && pView[ 41 ] < 666 ){
             ctx.drawImage(tx_side2[ pView[ 41 ] - 1 ],50,0,25,stone_side2.height,-Math.abs(400-50),160,25,stone_side2.height);
         }
+        ctx.restore();
+        if( typeof(pView[ 46 ]) === 'object' ){
+            drawObjView( pView[ 46 ].image, 245, 221, 0.2 );
+        }
+        
+        ctx.save()
+        ctx.scale( -1, 1 );
         if( pView[ 40 ] >= 1 && pView[ 40 ] < 666 ){
             ctx.drawImage(tx_side1[ pView[ 40 ] - 1 ],110,0,24,stone_side1.height,-Math.abs(400-110),138,24,stone_side1.height);
+        }
+        ctx.restore();
+        if( typeof(pView[ 47 ]) === 'object' ){
+            drawObjView( pView[ 47 ].image, 288, 221, 0.2 );
         }
         if( pView[ 46 ] >= 1 && pView[ 46 ] < 666 ){
             ctx.drawImage(tx_side[ pView[ 46 ] - 1 ],175,0,3,stone_side.height,-Math.abs(400-175),0,3,stone_side.height);
         }
         
         ctx.restore();
-
-        //OBJECT DRAWING
-        if( typeof(pView[ 45 ]) === 'object' ){
-            drawObjView( pView[ 45 ].image, 400 / 2, 221, 0.2 );
-        }
-        if( typeof(pView[ 44 ]) === 'object' ){
-            drawObjView( pView[ 44 ].image, 155, 221, 0.2 );
-        }
-        if( typeof(pView[ 43 ]) === 'object' ){
-            drawObjView( pView[ 43 ].image, 110, 221, 0.2 );
-        }
-        if( typeof(pView[ 46 ]) === 'object' ){
-            drawObjView( pView[ 46 ].image, 245, 221, 0.2 );
-        }
-        if( typeof(pView[ 47 ]) === 'object' ){
-            drawObjView( pView[ 47 ].image, 288, 221, 0.2 );
-        }
 
         //////////////
         /* -6 CHECK */
@@ -156,30 +159,26 @@ function drawSurround(){
         }
 
         //OBJECT PROCESSING
-        if( typeof(pView[ 38 ]) === 'object' ){
-            drawObjView( pView[ 38 ].image, 400 / 2, 227, 0.2 );
-        }
-        if( typeof(pView[ 40 ]) === 'object' ){
-            drawObjView( pView[ 40 ].image, 300, 227, 0.2 );
-        }
-        if( typeof(pView[ 39 ]) === 'object' ){
-            drawObjView( pView[ 39 ].image, 255, 227, 0.2 );
-        }
-        if( typeof(pView[ 37 ]) === 'object' ){
-            drawObjView( pView[ 37 ].image, 145, 227, 0.2 );
-        }
-        if( typeof(pView[ 36 ]) === 'object' ){
-            drawObjView( pView[ 36 ].image, 88, 227, 0.2 );
-        }
+        
+        
+        
+        
+        
         
         /* -2 left check */
         if( pView[ 28 ] >= 1 && pView[ 28 ] < 666 ){
             ctx.drawImage(tx_side2[ pView[ 28 ] - 1 ],0,0,50,stone_side2.height,0,160,50,stone_side2.height);
         }
+        if( typeof(pView[ 36 ]) === 'object' )
+            drawObjView( pView[ 36 ].image, 88, 227, 0.2 );
+        
         // -1 left check
         if( pView[ 29 ] >= 1 && pView[ 29 ] < 666 ){
             ctx.drawImage(tx_side1[ pView[ 29 ] - 1 ],80,0,45,stone_side1.height,80,138,45,stone_side1.height);
         }
+        if( typeof(pView[ 37 ]) === 'object' )
+            drawObjView( pView[ 37 ].image, 145, 227, 0.2 );
+        
         // left check
         if( pView[ 37 ] >= 1 && pView[ 37 ] < 666 ){
             ctx.drawImage(tx_side[ pView[ 37 ] - 1 ],170,0,5,stone_side.height,170,0,5,stone_side.height);
@@ -188,15 +187,28 @@ function drawSurround(){
         ////////////////////
         ////////////////////
         //right check
-        
+        if( typeof(pView[ 38 ]) === 'object' ){
+            drawObjView( pView[ 38 ].image, 400 / 2, 227, 0.2 );
+        }
         ctx.save();
         ctx.scale( -1, 1 );
         if( pView[ 34 ] >= 1 && pView[ 34 ] < 666 ){
             ctx.drawImage(tx_side2[ pView[ 34 ] - 1 ],0,0,50,stone_side2.height,-Math.abs(400),160,50,stone_side2.height);
         }
+        ctx.restore();
+        if( typeof(pView[ 39 ]) === 'object' )
+            drawObjView( pView[ 39 ].image, 255, 227, 0.2 );
+
+        ctx.save();
+        ctx.scale( -1, 1 );
         if( pView[ 33 ] >= 1 && pView[ 33 ] < 666 ){
             ctx.drawImage(tx_side1[ pView[ 33 ] - 1 ],80,0,45,stone_side1.height,-Math.abs(400-80),138,45,stone_side1.height);
-        } 
+        }
+        ctx.restore();
+        if( typeof(pView[ 40 ]) === 'object' )
+            drawObjView( pView[ 40 ].image, 300, 227, 0.2 );
+        ctx.save();
+        ctx.scale( -1, 1 );
         if( pView[ 39 ] >= 1 && pView[ 39 ] < 666 ){
             ctx.drawImage(tx_side[ pView[ 39 ] - 1 ],170,0,5,stone_side.height,-Math.abs(400-170),0,5,stone_side.height);
         }
@@ -210,7 +222,7 @@ function drawSurround(){
         }
         ctx.fillStyle = "rgba(0, 0, 0, 0.72)";
         if( pView[ 37 ] >= 1 && pView[ 37 ] < 666 && (pView[ 30 ] === 0 || typeof(pView[ 30 ]) === 'object')){
-            ctx.drawImage(tx[ pView[37] - 1], 170-60, 173, 60, 55 ); 
+            ctx.drawImage(tx[ pView[37] - 1], 170-60, 173, 60, 55 );
             ctx.fillRect(170-60, 173, 60, 55);
         }
         ctx.fillStyle = "rgba(0, 0, 0, 0.74)";
@@ -230,7 +242,7 @@ function drawSurround(){
         }
         ctx.fillStyle = "rgba(0, 0, 0, 0.74)";
         if( pView[ 40 ] >= 1 && pView[ 40 ] < 666 && (pView[ 33 ] === 0 || typeof(pView[ 33 ]) === 'object')){
-            ctx.drawImage(tx[ pView[40] - 1], 170+120, 173, 60, 55 ); 
+            ctx.drawImage(tx[ pView[40] - 1], 170+120, 173, 60, 55 );
             ctx.fillRect(170+120, 173, 60, 55);
         }
         ctx.fillStyle = "rgba(0, 0, 0, 0.76)";
@@ -239,51 +251,52 @@ function drawSurround(){
             ctx.fillRect(170+180, 173, 60, 55);
         }
 
+        
+        
+        
+        
+        
+        
         if( typeof(pView[ 29 ]) === 'object' ){
             drawObjView( pView[ 29 ].image, 56, 235, 0.3 );
         }
-        if( typeof(pView[ 30 ]) === 'object' ){
-            drawObjView( pView[ 30 ].image, 128, 235, 0.3 );
-        }
-        if( typeof(pView[ 32 ]) === 'object' ){
-            drawObjView( pView[ 32 ].image, 272, 235, 0.3 );
-        }
-        if( typeof(pView[ 33 ]) === 'object' ){
-            drawObjView( pView[ 33 ].image, 344, 235, 0.3 );
-        }
-        if( typeof(pView[ 31 ]) === 'object' ){
-            drawObjView( pView[ 31 ].image, 400 / 2, 235, 0.3 );
-        }
-        
         /* -1 left check */
-        
         if( pView[ 22 ] >= 1 && pView[ 22 ] < 666 ){
             ctx.drawImage(tx_side1[ pView[ 22 ] - 1 ],20,0,60,stone_side1.height,20,138,60,stone_side1.height);
         }
         /* left check */
-        
+        if( typeof(pView[ 30 ]) === 'object' ){
+            drawObjView( pView[ 30 ].image, 128, 235, 0.3 );
+        }
         if( pView[ 30 ] >= 1 && pView[ 30 ] < 666 ){
             ctx.drawImage(tx_side[ pView[ 30 ] - 1 ],160,0,10,stone_side.height,160,0,10,stone_side.height);
+        }
+        if( typeof(pView[ 32 ]) === 'object' ){
+            drawObjView( pView[ 32 ].image, 272, 235, 0.3 );
         }
         /* right -1 check */
         ////////////////////
         ////////////////////
         //right check
-        
-        
         ctx.save();
         ctx.scale( -1, 1 );
         if( pView[ 26 ] >= 1 && pView[ 26 ] < 666 ){
             ctx.drawImage(tx_side1[ pView[ 26 ] - 1 ],20,0,60,stone_side1.height,-Math.abs(400-20),138,60,stone_side1.height);
         }
+        ctx.restore();
+        if( typeof(pView[ 33 ]) === 'object' ){
+            drawObjView( pView[ 33 ].image, 344, 235, 0.3 );
+        }
+        ctx.save();
+        ctx.scale( -1, 1 );
         if( pView[ 32 ] >= 1 && pView[ 32 ] < 666 ){
             ctx.drawImage(tx_side[ pView[ 32 ] - 1 ],160,0,10,stone_side.height,-Math.abs(400-160),0,10,stone_side.height);
         }
         ctx.restore();
+        if( typeof(pView[ 31 ]) === 'object' ){
+            drawObjView( pView[ 31 ].image, 400 / 2, 235, 0.3 );
+        }
 
-        
-        
-        
         /* -4 CHECK */
         /* flat */
         ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
@@ -292,13 +305,11 @@ function drawSurround(){
             ctx.fillRect(160, 163, 80, 75);
         }
         
-
         if( pView[ 30 ] >= 1 && pView[ 30 ] < 666 && (pView[ 23 ] === 0 || typeof(pView[ 23 ]) === 'object')){
             ctx.drawImage(tx[ pView[30] - 1], 160-80, 163, 80, 75 );
             ctx.fillRect(160-80, 163, 80, 75);
         }
         
-
         if( pView[ 29 ] >= 1 && pView[ 29 ] < 666 && (pView[ 22 ] === 0 || typeof(pView[ 22 ]) === 'object')){
             ctx.drawImage(tx[ pView[29] - 1], 0, 163, 80, 75 );
             ctx.fillRect(0, 163, 80, 75);
@@ -312,31 +323,25 @@ function drawSurround(){
             ctx.fillRect(160+160, 163, 80, 75);
         }
 
+        
+        
         if( typeof(pView[ 22 ]) === 'object' ){
             drawObjView( pView[ 22 ].image, 2, 248, 0.5 );
         }
-        if( typeof(pView[ 23 ]) === 'object' ){
-            drawObjView( pView[ 23 ].image, 102, 248, 0.5 );
-        }
-        if( typeof(pView[ 26 ]) === 'object' ){
-            drawObjView( pView[ 26 ].image, 402, 248, 0.5 );
-        }
-        if( typeof(pView[ 25 ]) === 'object' ){
-            drawObjView( pView[ 25 ].image, 302, 248, 0.5 );
-        }
-        if( typeof(pView[ 24 ]) === 'object' ){
-            drawObjView( pView[ 24 ].image, 400 / 2, 248, 0.5 );
-        }
-
         /* -1 left check */
         if( pView[ 15 ] >= 1 && pView[ 15 ] < 666 ){
-            ctx.drawImage(tx_side1[ pView[ 15 ] - 1 ],0,0,20,stone_side1.height,0,138,20,stone_side1.height);
-            
+            ctx.drawImage(tx_side1[ pView[ 15 ] - 1 ],0,0,20,stone_side1.height,0,138,20,stone_side1.height);   
+        }
+        if( typeof(pView[ 23 ]) === 'object' ){
+            drawObjView( pView[ 23 ].image, 102, 248, 0.5 );
         }
         /* left check */
         
         if( pView[ 23 ] >= 1 && pView[ 23 ] < 666 ){
             ctx.drawImage(tx_side[ pView[ 23 ] - 1 ],140,0,20,stone_side.height,140,0,20,stone_side.height);
+        }
+        if( typeof(pView[ 24 ]) === 'object' ){
+            drawObjView( pView[ 24 ].image, 400 / 2, 248, 0.5 );
         }
         /* right -1 check */
         ////////////////////
@@ -345,13 +350,22 @@ function drawSurround(){
         ctx.save();
         ctx.scale( -1, 1 );
         if( pView[ 19 ] >= 1 && pView[ 19 ] < 666 ){
-            ctx.drawImage(tx_side1[ pView[ 19 ] - 1 ],0,0,20,stone_side1.height,-400,138,20,stone_side1.height);
-            
+            ctx.drawImage(tx_side1[ pView[ 19 ] - 1 ],0,0,20,stone_side1.height,-400,138,20,stone_side1.height);   
         }
+        ctx.restore();
+        if( typeof(pView[ 25 ]) === 'object' ){
+            drawObjView( pView[ 25 ].image, 302, 248, 0.5 );
+        }
+        ctx.save();
+        ctx.scale( -1, 1 );
         if( pView[ 25 ] >= 1 && pView[ 25 ] < 666 ){
             ctx.drawImage(tx_side[ pView[ 25 ] - 1 ],140,0,20,stone_side.height,-Math.abs(400-140),0,20,stone_side.height);
         }
-        ctx.restore();        
+        ctx.restore();
+        
+        if( typeof(pView[ 26 ]) === 'object' ){
+            drawObjView( pView[ 26 ].image, 402, 248, 0.5 );
+        }
         
         //////////////
         /* -3 CHECK */
@@ -385,31 +399,29 @@ function drawSurround(){
         if( typeof(pView[ 15 ]) === 'object' ){
             drawObjView( pView[ 15 ].image, -84, 278, 0.7 );
         }
-        if( typeof(pView[ 19 ]) === 'object' ){
-            drawObjView( pView[ 19 ].image, 532, 278, 0.7 );
-        }
-        if( typeof(pView[ 17 ]) === 'object' ){
-            drawObjView( pView[ 17 ].image, 400 / 2, 278, 0.7 );
-        }
         if( typeof(pView[ 16 ]) === 'object' ){
             drawObjView( pView[ 16 ].image, 58, 278, 0.7 );
         }
-        
-        if( typeof(pView[ 18 ]) === 'object' ){
-            drawObjView( pView[ 18 ].image, 348, 278, 0.7 );
-        }
-
         /* left check */
         if( pView[ 16 ] >= 1 && pView[ 16 ] < 666 ){
             ctx.drawImage(tx_side[ pView[ 16 ] - 1 ],100,0,40,stone_side.height,100,0,40,stone_side.height);
         }
         //right check
+        if( typeof(pView[ 17 ]) === 'object' ){
+            drawObjView( pView[ 17 ].image, 400 / 2, 278, 0.7 );
+        }
         ctx.save();
         ctx.scale( -1, 1 );
         if( pView[ 18 ] >= 1 && pView[ 18 ] < 666 ){
             ctx.drawImage(tx_side[ pView[ 18 ] - 1 ],100,0,40,stone_side.height,-Math.abs(400-100),0,40,stone_side.height);
         }
         ctx.restore();
+        if( typeof(pView[ 18 ]) === 'object' ){
+            drawObjView( pView[ 18 ].image, 348, 278, 0.7 );
+        }
+        if( typeof(pView[ 19 ]) === 'object' ){
+            drawObjView( pView[ 19 ].image, 532, 278, 0.7 );
+        }
 
         //////////////
         /* -2 CHECK *

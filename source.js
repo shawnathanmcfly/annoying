@@ -6,25 +6,27 @@
 //
 //
 ////////////////////////////////////////////////////////////
+var currentMusic;
+
+//Main screen
 var c = document.getElementById("gameWindow");
+//Map window
 var m = document.getElementById("mapWindow");
+//Context for both main game window and map window
 var ctx = c.getContext("2d");
 var mapC = m.getContext("2d");
 
-//GLOBALS
-var tx_side = [];
-var tx_side1 = [], tx_side2 = [];
-var tx = [];
+//Texture levels
+var tx_side = [], tx_side1 = [], tx_side2 = [], tx = [];
 var badguys = [];
 var bg = document.getElementById("bg");
-var px = 4;
-var py = 6;
-var dir = 3; //EAST
+
+var px = 4, py = 6, dir = 3;
 
 var level = [
 
     [ 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1 ],
-    [ 0, 1, obj.plant, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 2, 0, 1, 1, 1, 1, 1, 1 ],
+    [ 0, 1, obj.plant, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, obj.plant, 2, 0, 1, 1, 1, 1, 1, 1 ],
     [ 0, 1, obj.plant, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1 ],
     [ 0, 2, obj.plant, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1 ],
     [ 0, 1, obj.clip, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1 ],
@@ -37,12 +39,13 @@ var level = [
     [ 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
     [ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1 ],
     [ 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1 ],
-    [ 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1 ],
+    [ 2, 0, 0, 0, 0, 0, 0, 0, 1, obj.table, 0, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1 ],
     [ 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
     [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
 
 ];
 
+//Load up textures
 tx_side.push( document.getElementById("stone_side") );
 tx_side.push( document.getElementById("vend_side") );
 
@@ -55,6 +58,7 @@ tx_side2.push( document.getElementById("stone_side2") ); //TODO: ANOTHER DUMMY!!
 tx.push( document.getElementById("stone") );
 tx.push( document.getElementById("vend") );
 
+//enemies (in battle)
 badguys.push(document.getElementById("ban"));
 
 var pView = [
@@ -420,7 +424,7 @@ document.addEventListener("keydown", function(event){
         /*document.getElementById("msgBox").innerHTML = "X: "+ px + " Y: " + py;*/
     }
 
-    if( event.keyCode == 37 ){   
+    if( event.keyCode == 37 ){
         if( dir == 1 ){
             insertNote("Facing East");
             dir = 2;
@@ -452,7 +456,14 @@ document.addEventListener("keydown", function(event){
             insertNote("Facing East");
         }
     }
+
+    if( event.keyCode == 220 ){
+        currentMusic = document.getElementById("creepy");
+        currentMusic.loop = true;
+        currentMusic.play();
+    }
     
+    $("#kp").text("" + event.keyCode );
     getView();
     drawSurround();
     
@@ -465,19 +476,20 @@ c.addEventListener( 'mousemove', function(e){
 
 }, false);
 
-window.onload = (function() { 
+window.onload = (function() {
 
-    var pusher = new Pusher('885bfe46deea057b6812', {
-        cluster: 'us2',
-        encrypted: false
+    firebase.database().ref("chatData/").on("child_changed", function(data){
+        $("#msgBox").append( "<br><strong style='color:yellow'>Guest: </strong>" + data.val() );
+        
     });
-
-    let channel = pusher.subscribe('public-chat');
-    channel.bind('message-added', onMessageAdded);
-
+    
+    $("#sendMsg").on( "click", function(){
+        firebase.database().ref("chatData").update({ "lastMsg" : $("#msgs").val()} );
+        $("#msgs").val("");
+    });
+     
     getView();
     drawMap();
-
     drawSurround();
 
 });

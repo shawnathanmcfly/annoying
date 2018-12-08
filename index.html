@@ -5,8 +5,12 @@
     
 </head>
 
-<body>
+<body >
     <!-- Pre load images for stupid game -->
+    <audio id="creepy">
+        <source src="creepy.mp3" type="audio/mpeg" allow="autoplay">
+    </audio>
+
     <img id="bg" class="invImg" src="bg.gif" >
     
     <img id="stone_side" class="invImg" src="stone_side.gif" />
@@ -18,10 +22,12 @@
     <img id="stone" class="invImg" src="stone.gif" />
     <img id="vend" class="invImg" src="vend.gif" />
 
+    <!-- AMMO -->
     <img id="clip" class="invImg" src="clip.gif" />
 
     <!-- DECOR -->
     <img id="plant" class="invImg" src="plant.gif" />
+    <img id="table" class="invImg" src="table.gif" />
     
     <canvas id="gameWindow" width="400" height="400"></canvas>
     <div id="msgBox">
@@ -31,17 +37,30 @@
         move backwards is down<br>
     </div><br>
     <div id="chat">
-            <button style="float:right; width: 80px; height: 100%" type="button">send messege</button>
-        <textarea rows="2" cols="3"></textarea>
+            <button id="sendMsg" style="float:right; width: 80px; height: 100%" type="button">send messege</button>
+        <textarea id="msgs" rows="2" cols="3"></textarea>
         
     </div><br>
     <canvas id="mapWindow" width="205", height="205">
 
     </canvas>
-    <p id="mp"></p>
+    <p id="mp" style="color:white"></p>
+    <p id="kp" style="color:white"></p>
     
-    <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDS02YXvGYNRc-aJMrNHstn5M91B9U8Y_0",
+        authDomain: "annoying-1e8aa.firebaseapp.com",
+        databaseURL: "https://annoying-1e8aa.firebaseio.com",
+        projectId: "annoying-1e8aa",
+        storageBucket: "",
+        messagingSenderId: "738237621928"
+    };
+    firebase.initializeApp(config);
+    </script>
     <script src="msg.js"></script>
     <script src="items.js"></script>
     <script src="renderer.js"></script>
